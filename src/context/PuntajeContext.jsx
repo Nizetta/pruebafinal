@@ -6,7 +6,7 @@ export function PuntajeProvider({ children }) {
   const [puntaje, setPuntaje] = useState(0);
 
   const sumarPunto = () => {
-    setPuntaje((actual) => actual + 1);
+    setPuntaje((actual) => actual + 10);
   };
 
   return (

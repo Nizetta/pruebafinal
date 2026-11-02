@@ -15,15 +15,10 @@ function Intruso() {
     if (mensaje) return;
 
     const esCorrecta = opcion.toLowerCase() === ronda.Instruso.toLowerCase();
-    setMensaje(esCorrecta ? "¡Correcto!" : "Incorrecto, intenta de nuevo.");
+    setMensaje(esCorrecta ? "¡Correcto!" : "Incorrecto.");
     if (esCorrecta) sumarPunto();
 
     setTimeout(() => {
-      if (!esCorrecta) {
-        setMensaje("");
-        return;
-      }
-
       if (indice === preguntas.length - 1) {
         navigate("/Puntaje");
         return;
