@@ -11,3 +11,8 @@
     background-color: #aa3bff;
     border-radius: 10px;
 }
+
+.puntaje {
+    margin: 12px 0;
+    font-weight: 700;
+}

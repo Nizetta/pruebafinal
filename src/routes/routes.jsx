@@ -1,9 +1,9 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import Inicio from "../pages/inicio.jsx";
 import Error from "../pages/error.jsx";
-import  HoraComer from "../componetes/HoraComer.jsx";
+import HoraComer from "../componetes/HoraComer.jsx";
 import Intruso from "../componetes/Intruso.jsx";
- 
+import Puntaje from "../componetes/puntaje.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/Intruso",
     element: <Intruso />,
+  },
+  {
+    path: "/Puntaje",
+    element: <Puntaje />,
   },
 ]);
 

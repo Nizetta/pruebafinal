@@ -1,19 +1,61 @@
-import Image from "react-bootstrap/Image";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { preguntas } from "../data/juego2";
+import { usePuntaje } from "../context/PuntajeContext.jsx";
+
 function Intruso() {
-    return (
-      <>
-        <h1>INTRUSO</h1>
-       <div>
-          <h1 className="h1">ronda</h1>
-          <Image src="../src/assets/kurama.jpg" width={300} redoundedcircle />
-          <h2>opciones</h2>
-          <div className="div">
-            <button className="boton">op1</button>
-            <button className="boton">op2</button>
-            <button className="boton">op3</button>
-          </div>
-        </div>
-      </>
-    );
+  const [indice, setIndice] = useState(0);
+  const [mensaje, setMensaje] = useState("");
+  const navigate = useNavigate();
+  const { puntaje, sumarPunto } = usePuntaje();
+
+  const [nombreRonda, ronda] = Object.entries(preguntas[indice])[0];
+
+  const seleccionarOpcion = (opcion) => {
+    if (mensaje) return;
+
+    const esCorrecta = opcion.toLowerCase() === ronda.Instruso.toLowerCase();
+    setMensaje(esCorrecta ? "¡Correcto!" : "Incorrecto, intenta de nuevo.");
+    if (esCorrecta) sumarPunto();
+
+    setTimeout(() => {
+      if (!esCorrecta) {
+        setMensaje("");
+        return;
+      }
+
+      if (indice === preguntas.length - 1) {
+        navigate("/Puntaje");
+        return;
+      }
+
+      setIndice((actual) => actual + 1);
+      setMensaje("");
+    }, 1000);
+  };
+
+  return (
+    <div>
+      <h1>INTRUSO</h1>
+      <p className="puntaje">Puntaje: {puntaje}</p>
+      <h2 className="h1">Ronda {indice + 1}</h2>
+      <h2>Selecciona el intruso</h2>
+      <div className="div">
+        {ronda.opciones.map((opcion) => (
+          <button
+            className="boton"
+            key={opcion}
+            onClick={() => seleccionarOpcion(opcion.nombre)}
+            disabled={Boolean(mensaje)}
+          >
+            <img src={opcion.imagen} alt={opcion.nombre} width="100%" />
+            <span>{opcion.nombre}</span>
+          </button>
+        ))}
+      </div>
+      {mensaje && <p role="status">{mensaje}</p>}
+    </div>
+  );
 }
+
 export default Intruso;
